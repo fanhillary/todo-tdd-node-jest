@@ -72,15 +72,15 @@ describe('TodoController.getTodos', () => {
     });
 });
 
-describe("TodoController.getTodo", () => {
-    it ('should have a getTodo function', () => {
-        expect(typeof TodoController.getTodo).toBe("function");
+describe("TodoController.getTodoById", () => {
+    it ('should have a getTodoTodoById function', () => {
+        expect(typeof TodoController.getTodoById).toBe("function");
     });
 
     it ('should call TodoModel findOne for given id', async () => {
         const id = {"id" : "1234"}
         req.params = id;
-        await TodoController.getTodo(req, res, next);
+        await TodoController.getTodoById(req, res, next);
         expect(TodoModel.findOne).toHaveBeenCalledWith(id);
     });
 
@@ -88,7 +88,7 @@ describe("TodoController.getTodo", () => {
         const id = {"id" : "1234"}
         TodoModel.findOne.mockReturnValue(newTodo);
         req.params = id;
-        await TodoController.getTodo(req, res, next);
+        await TodoController.getTodoById(req, res, next);
         expect(res.statusCode).toBe(200);
         expect(res._getJSONData()).toEqual(newTodo);
     });
@@ -96,7 +96,7 @@ describe("TodoController.getTodo", () => {
     it ("should catch errors", async () => {
         const errorMessage = { message: "Cannot find ID"};
         TodoModel.findOne.mockReturnValue(Promise.reject(errorMessage));
-        await TodoController.getTodo(req, res, next);
+        await TodoController.getTodoById(req, res, next);
         expect(next).toHaveBeenCalledWith(errorMessage);
     });
 })

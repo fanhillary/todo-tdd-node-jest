@@ -36,3 +36,10 @@ describe("GET" + endpointUrl, () => {
         expect(response.body[0].done).toBeDefined();
     });
 });
+
+describe("GET" + endpointUrl + ":id", () => {
+    it ("should return todo for given id", async () => {
+        const response = await request(app)
+        .get(endpointUrl+"testId1234");
+    }); 
+});
